@@ -1,0 +1,20 @@
+### Send valid Zipcode POST request with json body
+GET http://localhost:8080
+Content-Type: application/json
+
+{
+  "zipcode": "21930190"
+}
+
+### Send invalid Zipcode POST request with json body
+GET http://localhost:8080
+Content-Type: application/json
+
+{
+  "zipcode": "999999"
+}
+
+
+### Weather api
+GET https://api.weatherapi.com/v1/current.json?q=Rio+de+Janeiro
+Key: b88fdf1171c0464d908220432241511

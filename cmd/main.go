@@ -1,10 +1,12 @@
 package main
 
-import "net/http"
+import (
+	"github.com/andretefras/fullcycle-go-labs-1-cloudrun/internal/presentation"
+	"log"
+	"net/http"
+)
 
 func main() {
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("Hello, World!"))
-	})
-	http.ListenAndServe(":8080", nil)
+	http.HandleFunc("/", presentation.Handler)
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }

@@ -1,0 +1,11 @@
+services:
+
+  cep-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      - WEATHER_API_KEY=${WEATHER_API_KEY}
+    ports:
+      - "8080:8080"
