@@ -15,7 +15,7 @@ type zipcodeRequest struct {
 }
 
 func Handler(w http.ResponseWriter, r *http.Request) {
-	if r.Method != "GET" {
+	if r.Method != "POST" {
 		httpError(w, validation.ErrValidatingRequestMethod)
 		return
 	}

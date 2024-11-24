@@ -1,5 +1,5 @@
 ### Send to local a valid Zipcode POST request with json body
-GET http://localhost:8080
+POST http://localhost:8080
 Content-Type: application/json
 
 {
@@ -7,7 +7,7 @@ Content-Type: application/json
 }
 
 ### Send to localhost an invalid Zipcode POST request with json body
-GET http://localhost:8080
+POST http://localhost:8080
 Content-Type: application/json
 
 {
@@ -15,7 +15,7 @@ Content-Type: application/json
 }
 
 ### Send to CloudRun a valid Zipcode POST request with json body
-GET http://localhost:8080
+POST http://localhost:8080
 Content-Type: application/json
 
 {
@@ -23,7 +23,7 @@ Content-Type: application/json
 }
 
 ### Send to CloudRun an invalid Zipcode POST request with json body
-GET http://localhost:8080
+POST http://localhost:8080
 Content-Type: application/json
 
 {

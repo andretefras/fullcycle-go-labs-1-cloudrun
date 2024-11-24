@@ -10,7 +10,7 @@ import (
 )
 
 func TestHandler_InvalidMethod(t *testing.T) {
-	req, err := http.NewRequest("POST", "/", nil)
+	req, err := http.NewRequest("GET", "/", nil)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -23,7 +23,7 @@ func TestHandler_InvalidMethod(t *testing.T) {
 }
 
 func TestHandler_InvalidBody(t *testing.T) {
-	req, err := http.NewRequest("GET", "/", bytes.NewBuffer([]byte("{invalid json}")))
+	req, err := http.NewRequest("POST", "/", bytes.NewBuffer([]byte("{invalid json}")))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -36,7 +36,7 @@ func TestHandler_InvalidBody(t *testing.T) {
 }
 
 func TestHandler_ValidRequest(t *testing.T) {
-	req, err := http.NewRequest("GET", "/", bytes.NewBuffer([]byte(`{"zipcode":"21930190"}`)))
+	req, err := http.NewRequest("POST", "/", bytes.NewBuffer([]byte(`{"zipcode":"21930190"}`)))
 	if err != nil {
 		t.Fatal(err)
 	}

@@ -19,6 +19,11 @@ daocker-compose up
 Para facilitar os testes, foi criado um arquivo **api/requests.http** que contém as requisições HTTP para testar a
 aplicação localmente e no CloudRun.
 
+# CloudRun
+
+A aplicação pode ser conferida funcionando no endereço:
+https://fullcycle-go-labs-1-cloudrun-866933005138.us-central1.run.app
+
 # Aplicação
 
 A aplicação foi estruturada baseada no **DDD**.
@@ -44,8 +49,3 @@ Os testes validam o comportamento do **handler** da requisição HTTP. Para exec
 ```shell
 go test ./internal/presentation
 ```
-
-# CodeRun
-
-A aplicação pode ser conferida funcionando no endereço:
-https://fullcycle-go-labs-1-cloudrun-866933005138.us-central1.run.app
