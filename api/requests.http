@@ -15,7 +15,7 @@ Content-Type: application/json
 }
 
 ### Send to CloudRun a valid Zipcode POST request with json body
-POST http://localhost:8080
+POST https://fullcycle-go-labs-1-cloudrun-866933005138.us-central1.run.app/
 Content-Type: application/json
 
 {
@@ -23,7 +23,7 @@ Content-Type: application/json
 }
 
 ### Send to CloudRun an invalid Zipcode POST request with json body
-POST http://localhost:8080
+POST https://fullcycle-go-labs-1-cloudrun-866933005138.us-central1.run.app/
 Content-Type: application/json
 
 {

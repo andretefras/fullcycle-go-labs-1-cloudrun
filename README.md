@@ -22,7 +22,7 @@ aplicação localmente e no CloudRun.
 # CloudRun
 
 A aplicação pode ser conferida funcionando no endereço:
-https://fullcycle-go-labs-1-cloudrun-866933005138.us-central1.run.app
+https://fullcycle-go-labs-1-cloudrun-866933005138.us-central1.run.app/
 
 # Aplicação
 
