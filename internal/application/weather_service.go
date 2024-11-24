@@ -2,6 +2,7 @@ package application
 
 import (
 	"github.com/andretefras/fullcycle-go-labs-1-cloudrun/internal/domain/entity"
+	rpi "github.com/andretefras/fullcycle-go-labs-1-cloudrun/internal/domain/repository"
 	"github.com/andretefras/fullcycle-go-labs-1-cloudrun/internal/infrastructure/repository"
 )
 
@@ -16,17 +17,20 @@ func NewWeather(city string, celsius float64, fahrenheit float64, kelvin float64
 	return &Weather{City: city, Celsius: celsius, Fahrenheit: fahrenheit, Kelvin: kelvin}
 }
 
-func NewWeatherService(p *Place) WeatherService {
-	return WeatherService{place: p}
+func NewWeatherService(p *Place, r string) WeatherService {
+	return WeatherService{
+		place:      p,
+		repository: repository.NewWeatherRepository(r),
+	}
 }
 
 type WeatherService struct {
-	place *Place
+	place      *Place
+	repository rpi.WeatherRepository
 }
 
 func (s *WeatherService) GetWeather() (*Weather, error) {
-	weatherRepository := repository.NewWeatherRepository()
-	weather, err := weatherRepository.FetchWeather(entity.Place(*s.place))
+	weather, err := s.repository.FetchWeather(entity.Place(*s.place))
 	if err != nil {
 		return nil, err
 	}

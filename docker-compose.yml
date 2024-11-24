@@ -7,5 +7,7 @@ services:
     restart: always
     environment:
       - WEATHER_API_KEY=${WEATHER_API_KEY}
+      - ZIPCODE_REPOSITORY=${ZIPCODE_REPOSITORY}
+      - WEATHER_REPOSITORY=${WEATHER_REPOSITORY}
     ports:
       - "8080:8080"

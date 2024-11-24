@@ -1,4 +1,4 @@
-### Send valid Zipcode POST request with json body
+### Send to local a valid Zipcode POST request with json body
 GET http://localhost:8080
 Content-Type: application/json
 
@@ -6,7 +6,7 @@ Content-Type: application/json
   "zipcode": "21930190"
 }
 
-### Send invalid Zipcode POST request with json body
+### Send to localhost an invalid Zipcode POST request with json body
 GET http://localhost:8080
 Content-Type: application/json
 
@@ -14,7 +14,18 @@ Content-Type: application/json
   "zipcode": "999999"
 }
 
+### Send to CloudRun a valid Zipcode POST request with json body
+GET http://localhost:8080
+Content-Type: application/json
 
-### Weather api
-GET https://api.weatherapi.com/v1/current.json?q=Rio+de+Janeiro
-Key: b88fdf1171c0464d908220432241511
+{
+  "zipcode": "21930190"
+}
+
+### Send to CloudRun an invalid Zipcode POST request with json body
+GET http://localhost:8080
+Content-Type: application/json
+
+{
+  "zipcode": "999999"
+}

@@ -3,9 +3,11 @@ package presentation
 import (
 	"encoding/json"
 	"github.com/andretefras/fullcycle-go-labs-1-cloudrun/internal/application"
+	"github.com/andretefras/fullcycle-go-labs-1-cloudrun/internal/infrastructure/repository"
 	"github.com/andretefras/fullcycle-go-labs-1-cloudrun/internal/presentation/validation"
 	"io"
 	"net/http"
+	"os"
 )
 
 type zipcodeRequest struct {
@@ -32,7 +34,12 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	zipcodeService, err := application.NewZipcodeService(application.Zipcode(zipcodeRequest.Zipcode))
+	zipcodeRepository := os.Getenv("ZIPCODE_REPOSITORY")
+	if zipcodeRepository == "" {
+		zipcodeRepository = repository.ZipcodeMockKey
+	}
+
+	zipcodeService, err := application.NewZipcodeService(application.Zipcode(zipcodeRequest.Zipcode), zipcodeRepository)
 	if err != nil {
 		http.Error(w, err.Error(), validation.ErrorCodes[err.Error()])
 		return
@@ -49,7 +56,12 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	weatherService := application.NewWeatherService(place)
+	weatherRepository := os.Getenv("WEATHER_REPOSITORY")
+	if weatherRepository == "" {
+		weatherRepository = repository.WeatherMockKey
+	}
+
+	weatherService := application.NewWeatherService(place, weatherRepository)
 	weather, err := weatherService.GetWeather()
 	if err != nil {
 		httpError(w, err.Error())
