@@ -2,7 +2,6 @@ package presentation
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/andretefras/fullcycle-go-labs-1-cloudrun/internal/application"
 	"github.com/andretefras/fullcycle-go-labs-1-cloudrun/internal/presentation/validation"
 	"io"
@@ -15,14 +14,13 @@ type zipcodeRequest struct {
 
 func Handler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "GET" {
-		http.Error(w, validation.ErrValidatingRequestMethod, validation.ErrorCodes[validation.ErrValidatingRequestMethod])
+		httpError(w, validation.ErrValidatingRequestMethod)
 		return
 	}
 
 	body, err := io.ReadAll(r.Body)
 	if err != nil {
-		fmt.Printf("%s\n", string(body))
-		http.Error(w, validation.ErrReadingRequestBody, validation.ErrorCodes[validation.ErrReadingRequestBody])
+		httpError(w, validation.ErrReadingRequestBody)
 		return
 	}
 	defer r.Body.Close()
@@ -30,7 +28,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	var zipcodeRequest zipcodeRequest
 	err = json.Unmarshal(body, &zipcodeRequest)
 	if err != nil {
-		http.Error(w, validation.ErrValidatingZipcode, validation.ErrorCodes[validation.ErrValidatingZipcode])
+		httpError(w, validation.ErrValidatingZipcode)
 		return
 	}
 
@@ -41,27 +39,31 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if zipcodeService == nil {
-		http.Error(w, validation.ErrValidatingZipcode, validation.ErrorCodes[validation.ErrValidatingZipcode])
+		httpError(w, validation.ErrValidatingZipcode)
 		return
 	}
 
 	place, err := zipcodeService.GetPlace()
 	if err != nil {
-		http.Error(w, err.Error(), validation.ErrorCodes[err.Error()])
+		httpError(w, err.Error())
 		return
 	}
 
 	weatherService := application.NewWeatherService(place)
 	weather, err := weatherService.GetWeather()
 	if err != nil {
-		http.Error(w, err.Error(), validation.ErrorCodes[err.Error()])
+		httpError(w, err.Error())
 		return
 	}
 
 	w.Header().Set("Content-Type", "application/json")
 	err = json.NewEncoder(w).Encode(weather)
 	if err != nil {
-		http.Error(w, validation.ErrRequestingWeather, validation.ErrorCodes[validation.ErrRequestingWeather])
+		httpError(w, validation.ErrRequestingWeather)
 		return
 	}
+}
+
+func httpError(w http.ResponseWriter, e string) {
+	http.Error(w, e, validation.ErrorCodes[e])
 }
